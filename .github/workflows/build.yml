@@ -7,20 +7,17 @@ on:
 
 jobs:
   build:
-    name: Build libuz.so (Android ARM64)
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout Builder Repo (Patch)
+      - name: Checkout repo
         uses: actions/checkout@v4
-        with:
-          path: patch
 
       - name: Setup Go
         uses: actions/setup-go@v5
         with:
           go-version: '1.21'
-          cache: false   # ⬅️ FIX: hindari error go.sum
+          cache: false
 
       - name: Build Binary
         run: |
@@ -28,11 +25,11 @@ jobs:
           export CGO_ENABLED=0
           export GOOS=android
           export GOARCH=arm64
-          go build -ldflags="-s -w" -o ../libuz.so .
-          ls -lh ../libuz.so
+          go build -ldflags="-s -w" -o libuz.so .
+          ls -lh libuz.so
 
       - name: Upload Artifact
         uses: actions/upload-artifact@v4
         with:
           name: libuz.so
-          path: ../libuz.so
+          path: app/libuz.so
