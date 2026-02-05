@@ -24,7 +24,7 @@ jobs:
 
       - name: Build Binary
         run: |
-          cd src/app
+          cd app
           export CGO_ENABLED=0
           export GOOS=android
           export GOARCH=arm64
@@ -35,4 +35,4 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: libuz.so
-          path: src/libuz.so
+          path: ../libuz.so
