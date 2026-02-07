@@ -92,6 +92,8 @@ type TLSConfig struct {
 	InsecureSkipVerify    bool
 	VerifyPeerCertificate func(rawCerts [][]byte, verifiedChains [][]*x509.Certificate) error
 	RootCAs               *x509.CertPool
+	DisableTLSALPN        bool    // Field tambahan untuk ZIVPN
+	AltTLSALPNPort        int     // Field tambahan untuk ZIVPN
 }
 
 // QUICConfig contains the QUIC configuration fields that we want to expose to the user.
@@ -103,6 +105,7 @@ type QUICConfig struct {
 	MaxIdleTimeout                 time.Duration
 	KeepAlivePeriod                time.Duration
 	DisablePathMTUDiscovery        bool // The server may still override this to true on unsupported platforms.
+	UDPIdleTimeout                 time.Duration // Field tambahan untuk ZIVPN
 }
 
 // BandwidthConfig describes the maximum bandwidth that the server can use, in bytes per second.
