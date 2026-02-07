@@ -74,6 +74,9 @@ func (c *clientImpl) connect() (*HandshakeInfo, error) {
 		VerifyPeerCertificate: c.config.TLSConfig.VerifyPeerCertificate,
 		RootCAs:               c.config.TLSConfig.RootCAs,
 	}
+	if c.config.TLSConfig.DisableTLSALPN {
+		tlsConfig.NextProtos = []string{}
+	}
 	quicConfig := &quic.Config{
 		InitialStreamReceiveWindow:     c.config.QUICConfig.InitialStreamReceiveWindow,
 		MaxStreamReceiveWindow:         c.config.QUICConfig.MaxStreamReceiveWindow,
